@@ -1,24 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Generator from './Generator';
+import Box from './Box';
 
 function App() {
+  const [color, setColor] = useState('')
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [boxes, setBoxes] = useState([])
+
+  useEffect(() => {
+    console.log(boxes)
+  }, [boxes])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <Generator setColor={setColor} setIsSubmitted={setIsSubmitted} setBoxes={setBoxes} boxes={boxes} />
+      </div>
+      <div>
+        {boxes.length > 0 &&
+          boxes.map((box, i) => {
+            return (
+              <Box key={i} color={box} className="box" />
+
+            )
+
+          })
+
+        }
+      </div>
     </div>
   );
 }
